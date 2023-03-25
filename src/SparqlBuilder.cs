@@ -48,7 +48,17 @@ public record SparqlBuilder
 
     public void OrderBy(params string[] orderBy)
     {
-        throw new NotImplementedException();
+        switch (previousOperator)
+        {
+            case Operator.NONE:
+            case Operator.SELECT:
+                 throw new Exception("You can only group after a where clause.");
+            case Operator.WHERE:
+                var orders = string.Join(", ", orderBy);
+                lines.Add($"ORDER BY {orders}");
+                break;
+        }
+        
         SetOperator(Operator.ORDERBY);
     }
 
