@@ -8,7 +8,7 @@ public record SparqlBuilder
 
     private List<string> lines = new();
     private List<Operator> operators = new();
-    private Oprator previousOperator = Operator.NONE;
+    private Operator previousOperator = Operator.NONE;
 
     public SparqlBuilder() { }
 
@@ -24,7 +24,7 @@ public record SparqlBuilder
         {
             case Operator.WHERE:
             case Operator.NONE:
-                var selects = string.Join(select, ", ");
+                var selects = string.Join(", ", select);
                 var line = $"SELECT {selects}";
                 lines.Add(line);
                 SetOperator(Operator.Select);
@@ -40,7 +40,7 @@ public record SparqlBuilder
                 throw new Exception("Cannot start with a where clause.");
             case Operator.SELECT:
             case Operator.WHERE:
-                lines.Add(string.Join(where, ", "));
+                lines.Add(string.Join(", ", where));
                 SetOperator(Operator.WHERE);
                 break;
         }
