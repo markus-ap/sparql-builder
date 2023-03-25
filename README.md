@@ -8,7 +8,7 @@ var veganPizza = "ex:VeganPizza";
 var query = new SparqlBuilder()
              .Select("*")
              .Where("?s", "a", veganPizza)
-             .Where("?s", "ex:costs", "?price)
+             .Where("?s", "ex:costs", "?price")
              .OrderBy("?price")
              .Build();
 
