@@ -1,26 +1,35 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SparqlBuilder;
 
 public record SparqlBuilder
 {
-    private List<string> lines;
-    private Operator previousOperator = Operator.NONE;
 
-    public SparqlBuilder()
+    private List<string> lines = new();
+    private List<Operator> operators = new();
+    private Oprator previousOperator = Operator.NONE;
+
+    public SparqlBuilder() { }
+
+    private void SetOperator(Operator operator)
     {
-
+        previousOperator = operator;
+        operators.Add(operator);
     }
 
     public void Select(params string[] select)
     {
-        if(previousOperator == Operator.NONE){
-            var selects = string.Join(select, ", ");
-            var line = $"SELECT {selects}";
-            lines.Add(line);
+        switch (previousOperator)
+        {
+            case Operator.WHERE:
+            case Operator.NONE:
+                var selects = string.Join(select, ", ");
+                var line = $"SELECT {selects}";
+                lines.Add(line);
+                SetOperator(Operator.Select);
+                break;
         }
-
-        previousOperator = Operator.SELECT;
     }
 
     public void Where(params string[] where)
@@ -32,15 +41,15 @@ public record SparqlBuilder
             case Operator.SELECT:
             case Operator.WHERE:
                 lines.Add(string.Join(where, ", "));
+                SetOperator(Operator.WHERE);
                 break;
         }
-        previousOperator = Operator.WHERE;
     }
 
     public void OrderBy(params string[] orderBy)
     {
         throw new NotImplementedException();
-        previousOperator = Operator.ORDERBY;
+        SetOperator(Operator.ORDERBY);
     }
 
     public string Build()
