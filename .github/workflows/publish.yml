@@ -30,4 +30,4 @@ jobs:
     - name: Build
       run: dotnet build ./src/SparqlBuilder/SparqlBuilder.csproj -c release --no-restore
     - name: Publish
-      run: dotnet nuget push ./src/SparqlBuilder/bin/release/SparqlBuilder*.nupkg --api-key ${{ secrets.NUGET_API_KEY }}  --source https://api.nuget.org/v3/index.json
+      run: dotnet nuget push ./src/SparqlBuilder/bin/release/SparqlBuilder*.nupkg --api-key ${{ secrets.NUGET_API_KEY }}  --source https://api.nuget.org/v3/index.json --skip-duplicate
