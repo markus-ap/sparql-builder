@@ -1,4 +1,4 @@
-namespace SparqlBuilder;
+namespace MAP.SPARQL.Builder;
 
 internal enum Operator
 {

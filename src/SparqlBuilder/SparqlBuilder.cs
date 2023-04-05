@@ -1,8 +1,4 @@
-using System;
-using System.Linq;
-using System.Collections.Generic;
-
-namespace SparqlBuilder;
+namespace MAP.SPARQL.Builder;
 
 internal record States
 {

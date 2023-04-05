@@ -1,6 +1,6 @@
 using System.Dynamic;
 
-namespace SparqlBuilder;
+namespace MAP.SPARQL.Builder;
 
 public class Namespace: DynamicObject
 {
