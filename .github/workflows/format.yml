@@ -1,0 +1,18 @@
+name: ".NET Format"
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: "Build & Format"
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 7.0.x
+    - name: Restore
+      run: dotnet format ./src/SparqlBuilder/SparqlBuilder.csproj
+    
