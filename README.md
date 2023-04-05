@@ -7,7 +7,7 @@ var pizza = new Namespace(new Uri("https://example.com/pizza#"));
 
 var query = new SparqlBuilder()
              .Select("*")
-             .Where("?s", "a", pizza.Vegan)
+             .Where("?s", "a", pizza.Vegan as string)
              .Where("?s", "ex:costs", "?price")
              .OrderBy("?price")
              .Build();
