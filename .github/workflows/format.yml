@@ -4,8 +4,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  test:
-    name: "Build & Format"
+  format:
+    name: "Format"
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -13,7 +13,7 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 7.0.x
-    - name: Restore
+    - name: Format
       run: dotnet format ./src/SparqlBuilder/
     - name: "Push changes"
       run: |
