@@ -11,6 +11,7 @@
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageId>SparqlBuilder</PackageId>
 		<VersionPrefix>0.0.1</VersionPrefix>
+    <Description>A library for building SPARQL queries.</Description>
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
 		<IncludeSymbols>true</IncludeSymbols>
