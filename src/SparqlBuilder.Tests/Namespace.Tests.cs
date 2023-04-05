@@ -1,8 +1,8 @@
 using System;
 using FluentAssertions;
-using SparqlBuilder;
+using MAP.SPARQL.Builder;
 
-namespace SparqlBuilder.Tests;
+namespace MAP.SPARQL.Builder.Tests;
 
 public class NamespaceTests
 {
