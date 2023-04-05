@@ -110,16 +110,16 @@ public record SparqlBuilder
 
             switch (op){
                 case Operator.SELECT:
-                    res += line + "\n";
+                    res += line + " ";
                     break;
                 case Operator.WHERE:
                     if(previousOperator == Operator.WHERE)
                     {
-                        res += line;
+                        res += line + " ";
                     }
                     else
                     {
-                        res += $"WHERE {{\n\t{line}\n";
+                        res += $"WHERE {{ {line} ";
                         openBraces += 1;
                     }
                     break;

@@ -12,7 +12,6 @@ public class SparqlBuilderTests
                         .Select("*")
                         .Where("?s", "?p", "?o")
                         .Build();
-        sparql = NormalizeMultilineString(sparql);
 
         var answer = "SELECT * WHERE { ?s ?p ?o . }";
         sparql.Should().Be(answer);
@@ -22,28 +21,30 @@ public class SparqlBuilderTests
     public void Can_Build_Sparql_With_Namespace()
     {
         dynamic ex = new Namespace("https://example.com/"); 
-        string thing = ex.Thing;
 
         var sparql = new SparqlBuilder()
                         .Select("*")
-                        .Where("?s", "?p", thing)
+                        .Where("?s", "?p", ex.Thing as string)
                         .Build();
-
-        sparql = NormalizeMultilineString(sparql);
-
 
         var answer = "SELECT * WHERE { ?s ?p <https://example.com/Thing> . }";
         sparql.Should().Be(answer);       
     }
 
-    private string NormalizeMultilineString(string multilineString)
+    [Fact]
+    public void Can_Build_Sparql_With_Multiple_Wheres()
     {
-        var lines = multilineString
-                        .Replace("\n", " ")
-                        .Replace("\t", "")
-                        .Replace("\r", "");
+        dynamic ex = new Namespace("https://example.com/");
 
-        return string.Join(Environment.NewLine, lines);
+        var sparql = new SparqlBuilder()
+                    .Select("*")
+                    .Where("?s", "?p", ex.Thing as string)
+                    .Where("?s", "?p2", "?o2")
+                    .Where("?s", "?p2", ex.Weird as string)
+                    .Build();
+        
+        sparql.Should().Be("SELECT * WHERE { ?s ?p <https://example.com/Thing> . ?s ?p2 ?o2 . ?s ?p2 <https://example.com/Weird> . }");
+
     }
 }
 
