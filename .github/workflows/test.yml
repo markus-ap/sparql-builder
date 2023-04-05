@@ -18,7 +18,9 @@ jobs:
         dotnet restore ./src/SparqlBuilder/SparqlBuilder.csproj
         dotnet restore ./src/SparqlBuilder.Tests/SparqlBuilder.Tests.csproj 
     - name: Build
-      run: dotnet build ./src/SparqlBuilder/SparqlBuilder.csproj --no-restore
+      run: |
+        dotnet build ./src/SparqlBuilder/SparqlBuilder.csproj --no-restore
+        dotnet build ./src/SparqlBuilder.Tests/SparqlBuilder.Tests.csproj --no-restore
     - name: Test
       run: dotnet test ./src/SparqlBuilder.Tests/SparqlBuilder.Tests.csproj --no-build --verbosity normal
     
