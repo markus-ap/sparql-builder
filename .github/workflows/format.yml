@@ -1,0 +1,35 @@
+name: ".NET Format"
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  format:
+    name: "Format"
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 7.0.x
+    - name: Format
+      run: dotnet format ./src/SparqlBuilder/
+    - name: "Push changes"
+      run: |
+        changes=$(git diff)
+        if [ -n "$changes" ]; then
+          echo "Changes detected."
+
+          branch=${GITHUB_REF#refs/heads/}
+          
+          git config --local user.name 'github-actions[bot]'
+          git config --local user.email 'github-actions[bot]@users.noreply.github.com'
+
+          git add .
+          git commit -m "auto format"
+          git push 
+        else
+          echo "No changes detected."
+        fi
+    

@@ -31,7 +31,7 @@ public record SparqlBuilder
                 var newLines = states.lines;
                 newLines.Add(line);
                 states.SetOperator(Operator.SELECT);
-                return this with 
+                return this with
                 {
                     states = states with
                     {
@@ -49,7 +49,7 @@ public record SparqlBuilder
     {
         switch (states.previousOperator)
         {
-            case Operator.NONE: 
+            case Operator.NONE:
                 throw new Exception("Cannot start with a where clause.");
             case Operator.SELECT:
             case Operator.WHERE:
@@ -74,7 +74,7 @@ public record SparqlBuilder
         {
             case Operator.NONE:
             case Operator.SELECT:
-                 throw new Exception("You can only group after a where clause.");
+                throw new Exception("You can only group after a where clause.");
             case Operator.WHERE:
                 var orders = string.Join(", ", orderBy);
                 var newLines = states.lines;
@@ -99,17 +99,18 @@ public record SparqlBuilder
 
         var openBraces = 0;
 
-        for(var i = 0; i < states.operators.Count(); i++)
+        for (var i = 0; i < states.operators.Count(); i++)
         {
             var line = states.lines[i];
             var op = states.operators[i];
 
-            switch (op){
+            switch (op)
+            {
                 case Operator.SELECT:
                     res += line + " ";
                     break;
                 case Operator.WHERE:
-                    if(previousOperator == Operator.WHERE)
+                    if (previousOperator == Operator.WHERE)
                     {
                         res += line + " ";
                     }
@@ -130,10 +131,10 @@ public record SparqlBuilder
             previousOperator = op;
         }
 
-        for(var i = 0; i < openBraces; i++)
+        for (var i = 0; i < openBraces; i++)
         {
             res += "}";
-            if(i != openBraces-1) res += "\n";
+            if (i != openBraces - 1) res += "\n";
         }
 
         return res;

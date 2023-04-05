@@ -2,7 +2,7 @@ using System.Dynamic;
 
 namespace MAP.SPARQL.Builder;
 
-public class Namespace: DynamicObject
+public class Namespace : DynamicObject
 {
     private Uri _baseUri;
 

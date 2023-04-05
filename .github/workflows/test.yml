@@ -1,0 +1,26 @@
+name: ".NET Tests"
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: "Build & Test"
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 7.0.x
+    - name: Restore
+      run: |
+        dotnet restore ./src/SparqlBuilder/SparqlBuilder.csproj
+        dotnet restore ./src/SparqlBuilder.Tests/SparqlBuilder.Tests.csproj 
+    - name: Build
+      run: |
+        dotnet build ./src/SparqlBuilder/SparqlBuilder.csproj --no-restore
+        dotnet build ./src/SparqlBuilder.Tests/SparqlBuilder.Tests.csproj --no-restore
+    - name: Test
+      run: dotnet test ./src/SparqlBuilder.Tests/SparqlBuilder.Tests.csproj --no-build --verbosity normal
+    
