@@ -23,7 +23,7 @@ jobs:
           
           git config --local user.name 'github-actions[bot]'
           git config --local user.email 'github-actions[bot]@users.noreply.github.com'
-
+          git checkout origin/${{ github.ref_name }}
           git add .
           git commit -m "auto format"
           git push 
