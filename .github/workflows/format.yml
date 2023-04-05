@@ -20,10 +20,12 @@ jobs:
         changes=$(git diff)
         if [ -n "$changes" ]; then
           echo "Changes detected."
+
+          branch=$(git symbolic-ref --short HEAD)
           
           git config --local user.name 'github-actions[bot]'
           git config --local user.email 'github-actions[bot]@users.noreply.github.com'
-          git checkout origin/${{ github.ref_name }}
+          git checkout origin/$branch
           git add .
           git commit -m "auto format"
           git push 
